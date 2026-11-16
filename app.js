@@ -12,15 +12,15 @@ app.set('layout', 'layout/layout')
 app.use(expressEjsLayouts)
 app.use(express.static('public'))
 
-import authRoute from './routes/auth.js'
-import cartRoute from './routes/cart.js'
-import orderRoute from './routes/order.js'
-import productRoute from './routes/product.js'
+import authRoute from './routes/auth.route.js'
+import cartRoute from './routes/cart.route.js'
+import orderRoute from './routes/order.route.js'
+import productRoute from './routes/product.route.js'
 
 app.use('/auth', authRoute)
 app.use('/cart', cartRoute)
 app.use('/order', orderRoute)
-app.use('/product', productRoute)
+app.use('/products', productRoute)
 
 
 app.listen(PORT, ()=> {console.log(`Server running on port: ${PORT}`)})
