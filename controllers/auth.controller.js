@@ -1,30 +1,33 @@
+import User from "../models/user.model.js"
 let users = []
+
 
 export const getLoginPage = (req, res) => {
   res.render('auth/login', {title: 'Kirish'})
 }
 
 export const getRegisterPage = (req, res) => {
-  res.render('auth/register', {title: `Ro'yxatdan o'tish`})
+  res.render('auth/register', {title: `Ro'yxatdan o'tish`, error: null})
 }
 
-export const registerUser = (req, res) => {
+export const registerUser = async (req, res) => {
   const {name, email, password} = req.body
-  const user = {
-    id: 1,
-    name,
-    email,
-    password
+
+  const existingUser = await User.findOne({email})
+  if(existingUser){
+    return res.status(400).render('auth/register', {title: `Ro'yxatdan o'tish`, error: 'Bu email tizimda mavjud!'})
   }
-  users.push(user)
+
+  await User.create({ name, email, password})
+  
   res.redirect('/auth/login')
 }
 
-export const loginUser = (req, res) => {
+export const loginUser = async(req, res) => {
   const {email, password} = req.body
-  const user = users.find(u => u.email === email && u.password === password)
+  const user = await User.findOne({email, password})
   if(user){
-    res.redirect('/products')
+   return res.redirect('/products')
   }
-  
+  res.redirect('/auth/login')
 }
