@@ -1,6 +1,6 @@
 import express from 'express'
 import expressEjsLayouts from 'express-ejs-layouts'
-import connectDb from './config/db.js'
+import connectDB from './config/db.js'
 
 const PORT = process.env.PORT || 3000
 
@@ -25,6 +25,6 @@ app.use('/products', productRoute)
 
 
 app.listen(PORT, ()=> {
-  connectDb()
+  connectDB()
   console.log(`Server running on port: ${PORT}`)
 })
