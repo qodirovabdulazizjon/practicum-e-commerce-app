@@ -1,12 +1,14 @@
 import express from 'express'
 import expressEjsLayouts from 'express-ejs-layouts'
 import connectDB from './config/db.js'
+import cookieParser from 'cookie-parser'
 
 const PORT = process.env.PORT || 3000
 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+app.use(cookieParser())
 
 app.set('view engine', 'ejs')
 app.set('layout', 'layout/layout')

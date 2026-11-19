@@ -1,6 +1,8 @@
 import User from "../models/user.model.js"
-let users = []
+import jwt from 'jsonwebtoken'
 
+let users = []
+const JWT_SECRET = process.env.JWT_SECRET
 
 export const getLoginPage = (req, res) => {
   res.render('auth/login', {title: 'Kirish'})
@@ -27,7 +29,14 @@ export const loginUser = async(req, res) => {
   const {email, password} = req.body
   const user = await User.findOne({email, password})
   if(user){
-   return res.redirect('/products')
+    const token = jwt.sign({id: user._id, email}, JWT_SECRET, {expiresIn: '1h'})
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true, // process.env.NODE_ENV === 'production'
+      maxAge: 3600000,
+    })
   }
+  
+  
   res.redirect('/auth/login')
 }
