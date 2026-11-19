@@ -1,1 +1,52 @@
-<h1>cart</h1>
+<main class="container py-4">
+  <h1 class="mb-4">Savatcha</h1>
+
+  <% if (items.length === 0) { %>
+    <p>Savatchangiz hozircha bo‘sh.</p>
+    <a href="/products" class="btn btn-primary">Mahsulotlarni ko‘rish</a>
+  <% } else { %>
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Mahsulot</th>
+            <th>Narxi</th>
+            <th>Miqdori</th>
+            <th>Jami</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% items.forEach(item => { %>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <img src="<%= item.product.imageUrl %>" alt="<%= item.product.name %>" width="72" height="56" style="object-fit: cover;">
+                  <a href="/products/<%= item.product._id %>"><%= item.product.name %></a>
+                </div>
+              </td>
+              <td><%= item.product.price %> so'm</td>
+              <td>
+                <form action="/cart/items/<%= item.product._id %>/update" method="post" class="d-flex gap-2">
+                  <input class="form-control" type="number" name="quantity" min="1" value="<%= item.quantity %>" style="width: 90px;" aria-label="Miqdor">
+                  <button class="btn btn-outline-primary" type="submit">Yangilash</button>
+                </form>
+              </td>
+              <td><%= item.product.price * item.quantity %> so'm</td>
+              <td>
+                <form action="/cart/items/<%= item.product._id %>/remove" method="post">
+                  <button class="btn btn-outline-danger" type="submit">O‘chirish</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex flex-column align-items-end gap-3">
+      <p class="fs-4 fw-bold mb-0">Jami: <%= total %> so'm</p>
+      <a href="/products" class="btn btn-primary">Xaridni davom ettirish</a>
+    </div>
+  <% } %>
+</main>

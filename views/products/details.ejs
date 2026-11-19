@@ -1,1 +1,21 @@
-<h1>Product details</h1>
+<main class="container py-4">
+  <a href="/products" class="btn btn-outline-secondary mb-4">← Mahsulotlarga qaytish</a>
+
+  <article class="row g-4">
+    <div class="col-md-6">
+      <img
+        src="<%= product.imageUrl %>"
+        alt="<%= product.name %>"
+        class="img-fluid rounded"
+      >
+    </div>
+    <div class="col-md-6">
+      <h1><%= product.name %></h1>
+      <p class="fs-4 fw-bold"><%= product.price %> so'm</p>
+      <p><%= product.description %></p>
+      <form action="/cart/items/<%= product._id %>" method="post">
+        <button type="submit" class="btn btn-primary">Savatchaga qo‘shish</button>
+      </form>
+    </div>
+  </article>
+</main>

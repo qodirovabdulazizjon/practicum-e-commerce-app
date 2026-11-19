@@ -4,11 +4,11 @@ import jwt from 'jsonwebtoken'
 const JWT_SECRET = process.env.JWT_SECRET
 
 export const getLoginPage = (req, res) => {
-  res.render('auth/login', {title: 'Kirish', error: null})
+  res.render('auth/login', {title: 'Kirish', error: null, showNavbar: false})
 }
 
 export const getRegisterPage = (req, res) => {
-  res.render('auth/register', {title: `Ro'yxatdan o'tish`, error: null})
+  res.render('auth/register', {title: `Ro'yxatdan o'tish`, error: null, showNavbar: false})
 }
 
 export const registerUser = async (req, res) => {
@@ -16,7 +16,7 @@ export const registerUser = async (req, res) => {
 
   const existingUser = await User.findOne({email})
   if(existingUser){
-    return res.status(400).render('auth/register', {title: `Ro'yxatdan o'tish`, error: 'Bu email tizimda mavjud!'})
+    return res.status(400).render('auth/register', {title: `Ro'yxatdan o'tish`, error: 'Bu email tizimda mavjud!', showNavbar: false})
   }
 
   await User.create({ name, email, password})
@@ -38,4 +38,9 @@ export const loginUser = async(req, res) => {
     })
 
     return res.redirect('/products')
+}
+
+export const logoutUser = (req, res) => {
+  res.clearCookie('token')
+  return res.redirect('/auth/login')
 }
