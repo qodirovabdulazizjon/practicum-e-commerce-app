@@ -46,7 +46,12 @@
 
     <div class="d-flex flex-column align-items-end gap-3">
       <p class="fs-4 fw-bold mb-0">Jami: <%= total %> so'm</p>
-      <a href="/products" class="btn btn-primary">Xaridni davom ettirish</a>
+      <div class="d-flex gap-2">
+        <a href="/products" class="btn btn-outline-primary">Xaridni davom ettirish</a>
+        <form action="/order/checkout" method="post">
+          <button type="submit" class="btn btn-primary">Buyurtma berish</button>
+        </form>
+      </div>
     </div>
   <% } %>
 </main>

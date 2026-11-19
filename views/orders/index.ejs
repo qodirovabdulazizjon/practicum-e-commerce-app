@@ -1,0 +1,25 @@
+<main class="container py-4">
+  <h1 class="mb-4">Buyurtmalarim</h1>
+
+  <% if (orders.length === 0) { %>
+    <p>Hozircha buyurtmalaringiz yo‘q.</p>
+    <a href="/products" class="btn btn-primary">Mahsulotlarni ko‘rish</a>
+  <% } else { %>
+    <% orders.forEach(order => { %>
+      <section class="card mb-4">
+        <div class="card-header d-flex justify-content-between">
+          <span>Buyurtma: <%= order.orderDate.toLocaleDateString('uz-UZ') %></span>
+          <strong>Jami: <%= order.total %> so'm</strong>
+        </div>
+        <ul class="list-group list-group-flush">
+          <% order.items.forEach(item => { %>
+            <li class="list-group-item d-flex justify-content-between">
+              <span><%= item.name %> × <%= item.quantity %></span>
+              <span><%= item.price * item.quantity %> so'm</span>
+            </li>
+          <% }) %>
+        </ul>
+      </section>
+    <% }) %>
+  <% } %>
+</main>
