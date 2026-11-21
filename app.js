@@ -24,6 +24,7 @@ app.use('/auth', authRoute)
 app.use('/cart', cartRoute)
 app.use('/order', orderRoute)
 app.use('/products', productRoute)
+app.get('/', (req, res) => {res.redirect('/products')})
 
 
 app.listen(PORT, ()=> {
